@@ -1,11 +1,12 @@
 ---
 layout: workshop      # DON'T CHANGE THIS.
-carpentry: "swc"    # what kind of Carpentry (must be either "lc" or "dc" or "swc")
+carpentry: "swc"    # what kind of Carpentry (must be either "lc" or "dc" or "swc").
+                      # Be sure to update the Carpentry type in _config.yml as well.  
 venue: "Earlham Institute"        # brief name of host site without address (e.g., "Euphoric State University")
 address: "Norwich Research Park, Norwich, NR4 7UZ"      # full street address of workshop (e.g., "Room A, 123 Forth Street, Blimingen, Euphoria")
 country: "gb"      # lowercase two-letter ISO country code such as "fr" (see https://en.wikipedia.org/wiki/ISO_3166-1)
 language: "en"     # lowercase two-letter ISO language code such as "fr" (see https://en.wikipedia.org/wiki/ISO_639-1)
-latlng: "52.621741, 1.218987"       # decimal latitude and longitude of workshop venue (e.g., "41.7901128,-87.6007318" - use http://www.latlong.net/)
+latlng: "52.621741, 1.218987"       # decimal latitude and longitude of workshop venue (e.g., "41.7901128,-87.6007318" - use https://www.latlong.net/)
 humandate: "Jan 22-23, 2019"    # human-readable dates for the workshop (e.g., "Feb 17-18, 2020")
 humantime: "9:00 am - 5:00 pm"    # human-readable times for the workshop (e.g., "9:00 am - 4:30 pm")
 startdate: 2019-01-22     # machine-readable start date for the workshop in YYYY-MM-DD format like 2015-01-01
@@ -41,7 +42,7 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   src="https://www.eventbrite.com/tickets-external?eid={{page.eventbrite}}&ref=etckt"
   frameborder="0"
   width="100%"
-  height="248px"
+  height="280px"
   scrolling="auto">
 </iframe>
 {% endif %}
@@ -81,7 +82,7 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
 
   This block displays the address and links to maps showing directions
   if the latitude and longitude of the workshop have been set.  You
-  can use http://itouchmap.com/latlong.html to find the lat/long of an
+  can use https://itouchmap.com/latlong.html to find the lat/long of an
   address.
 {% endcomment %}
 {% if page.latlng %}
@@ -183,17 +184,16 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
  SURVEYS - DO NOT EDIT SURVEY LINKS 
 {% endcomment %}
 <h2 id="surveys">Surveys</h2>
-
-{% if page.carpentry == "swc" %} 
 <p>Please be sure to complete these surveys before and after the workshop.</p>
+{% if site.carpentry == "swc" %} 
 <p><a href="{{ site.swc_pre_survey }}{{ site.github.project_title }}">Pre-workshop Survey</a></p>
 <p><a href="{{ site.swc_post_survey }}{{ site.github.project_title }}">Post-workshop Survey</a></p>
-{% elsif page.carpentry == "dc" %}
-  <p>Please be sure to complete these surveys before and after the workshop.</p>
+{% elsif site.carpentry == "dc" %}
 <p><a href="{{ site.dc_pre_survey }}{{ site.github.project_title }}">Pre-workshop Survey</a></p>
 <p><a href="{{ site.dc_post_survey }}{{ site.github.project_title }}">Post-workshop Survey</a></p>
-{% elsif page.carpentry == "lc" %}
-<p>Ask your instructor about pre- and post-workshop Survey details.</p>
+{% elsif site.carpentry == "lc" %}
+<p><a href="{{ site.lc_pre_survey }}{{ site.github.project_title }}">Pre-workshop Survey</a></p>
+<p><a href="{{ site.lc_post_survey }}{{ site.github.project_title }}">Post-workshop Survey</a></p>
 {% endif %}
 
 <hr/>
@@ -310,18 +310,22 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <a href="https://www.youtube.com/watch?v=339AEqk9c-8">Video Tutorial</a>
       <ol>
         <li>Download the Git for Windows <a href="https://git-for-windows.github.io/">installer</a>.</li>
-        <li>Run the installer and follow the steps bellow:
+        <li>Run the installer and follow the steps below:
           <ol>
-            {% comment %} Git 2.8.2 Setup {% endcomment %}
-            {% comment %} Information {% endcomment %}
-            <li>Click on "Next".</li>
-            {% comment %} Select Components {% endcomment %}
-            <li>Click on "Next".</li>
+            {% comment %} Git 2.18.0 Setup {% endcomment %}
+            <li>
+                Click on "Next" four times (two times if you've previously
+                installed Git).  You don't need to change anything
+                in the Information, location, components, and start menu screens.
+            </li>
+            <li>
+                <strong>
+                Select “Use the nano editor by default” and click on “Next”.
+                </strong>
+            </li>
             {% comment %} Adjusting your PATH environment {% endcomment %}
             <li>
-              <strong>
-                Keep "Use Git from the Windows Command Prompt" selected and click on "Next".
-              </strong>
+                Keep "Use Git from the command line and..." selected and click on "Next".
                 If you forgot to do this programs that you need for the workshop will not work properly.
                 If this happens rerun the installer and select the appropriate option.
             </li>
@@ -329,14 +333,12 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
             <li>Click on "Next".</li>
             {% comment %} Configuring the line ending conversions {% endcomment %}
             <li>
-              <strong>
                 Keep "Checkout Windows-style, commit Unix-style line endings" selected and click on "Next".
-              </strong>
             </li>
             {% comment %} Configuring the terminal emulator to use with Git Bash {% endcomment %}
             <li>
               <strong>
-                Keep "Use Windows' default console window" selected and click on "Next".
+                Select "Use Windows' default console window" and click on "Next".
               </strong>
             </li>
             {% comment %} Configuring experimental performance tweaks {% endcomment %}
@@ -386,17 +388,15 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   </div>
 </div> {% comment %} End of 'shell' section. {% endcomment %}
 
-<div id="git"> {% comment %} Start of 'Git' section. GitHub browser compatability
-           is given at https://help.github.com/articles/supported-browsers/{% endcomment %}
+<div id="git"> {% comment %} Start of 'Git' section. {% endcomment %}
   <h3>Git</h3>
   <p>
     Git is a version control system that lets you track who made changes
     to what when and has options for easily updating a shared or public
     version of your code
     on <a href="https://github.com/">github.com</a>. You will need a
-    <a href="https://help.github.com/articles/supported-browsers/">supported</a>
-    web browser (current versions of Chrome, Firefox or Safari,
-    or Internet Explorer version 9 or above).
+    <a href="https://help.github.com/articles/supported-browsers/">supported
+    web browser</a>.
   </p>
   <p>
     You will need an account at <a href="https://github.com/">github.com</a>
@@ -418,16 +418,21 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
     </div>
     <div class="col-md-4">
       <h4 id="git-macosx">macOS</h4>
-      <a href="https://www.youtube.com/watch?v=9LQhwETCdwY ">Video Tutorial</a>
       <p>
-        <strong>For OS X 10.9 and higher</strong>, install Git for Mac
-        by downloading and running the most recent "mavericks" installer from
-        <a href="http://sourceforge.net/projects/git-osx-installer/files/">this list</a>.
-        After installing Git, there will not be anything in your <code>/Applications</code> folder,
-        as Git is a command line program.
+        Please open the Terminal app, type <code>git --version</code> and press 
+        <kbd>Enter</kbd>/<kbd>Return</kbd>. If it's not installed already, 
+        follow the instructions to <code>Install</code> the "command line 
+        developer tools". <strong>Don't click</strong> "Get Xcode", because that will 
+        take too long and is not necessary for our Git lesson.
+        After installing these tools, there won't be anything in your <code>/Applications</code>
+        folder, as they and Git are command line programs.
         <strong>For older versions of OS X (10.5-10.8)</strong> use the
         most recent available installer labelled "snow-leopard"
         <a href="http://sourceforge.net/projects/git-osx-installer/files/">available here</a>.
+        Because this installer is not signed by the developer, you may have to
+        right click (control click) on the .pkg file, click Open, and click
+        Open in the pop-up dialog. You can watch 
+        <a href="https://www.youtube.com/watch?v=9LQhwETCdwY ">a video tutorial about this case</a>.
       </p>
     </div>
     <div class="col-md-4">
@@ -448,37 +453,25 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   <p>
     When you're writing code, it's nice to have a text editor that is
     optimized for writing code, with features like automatic
-    color-coding of key words.  The default text editor on macOS and
+    color-coding of key words. The default text editor on macOS and
     Linux is usually set to Vim, which is not famous for being
-    intuitive.  if you accidentally find yourself stuck in it, try
-    typing the escape key, followed by <code>:q!</code> (colon, lower-case 'q',
-    exclamation mark), then hitting Return to return to the shell.
+    intuitive. If you accidentally find yourself stuck in it, hit
+    the <kbd>Esc</kbd> key, followed by <kbd>:</kbd>+<kbd>Q</kbd>+<kbd>!</kbd> 
+    (colon, lower-case 'q', exclamation mark), then hitting <kbd>Return</kbd> to 
+    return to the shell.
   </p>
 
   <div class="row">
     <div class="col-md-4">
       <h4 id="editor-windows">Windows</h4>
-      <a href="https://www.youtube.com/watch?v=339AEqk9c-8">Video Tutorial</a>
       <p>
         nano is a basic editor and the default that instructors use in the workshop.
-        To install it,
-        download the <a href="{{site.swc_installer}}">
-          {% if page.carpentry == "swc" %}
-          Software Carpentry
-          {% elsif page.carpentry == "dc" %}
-          Data Carpentry
-          {% elsif page.carpentry == "lc" %}
-          Library Carpentry
-          {% endif %}
-          Windows installer
-	</a>
-        and double click on the file to run it.
-        <strong>This installer requires an active internet connection.</strong>
+        It is installed along with Git.
       </p>
       <p>
         Others editors that you can use are
-        <a href="http://notepad-plus-plus.org/">Notepad++</a> or
-        <a href="http://www.sublimetext.com/">Sublime Text</a>.
+        <a href="https://notepad-plus-plus.org/">Notepad++</a> or
+        <a href="https://www.sublimetext.com/">Sublime Text</a>.
         <strong>Be aware that you must
           add its installation directory to your system path.</strong>
         Please ask your instructor to help you do this.
@@ -494,8 +487,8 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       </p>
       <p>
         Others editors that you can use are
-        <a href="http://www.barebones.com/products/textwrangler/">Text Wrangler</a> or
-        <a href="http://www.sublimetext.com/">Sublime Text</a>.
+        <a href="https://www.barebones.com/products/bbedit/">BBEdit</a> or
+        <a href="https://www.sublimetext.com/">Sublime Text</a>.
       </p>
     </div>
     <div class="col-md-4">
@@ -507,8 +500,8 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <p>
         Others editors that you can use are
         <a href="https://wiki.gnome.org/Apps/Gedit">Gedit</a>,
-        <a href="http://kate-editor.org/">Kate</a> or
-        <a href="http://www.sublimetext.com/">Sublime Text</a>.
+        <a href="https://kate-editor.org/">Kate</a> or
+        <a href="https://www.sublimetext.com/">Sublime Text</a>.
       </p>
     </div>
   </div>
@@ -521,7 +514,7 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   <h3>Python</h3>
 
   <p>
-    <a href="http://python.org">Python</a> is a popular language for
+    <a href="https://python.org">Python</a> is a popular language for
     research computing, and great for general-purpose programming as
     well.  Installing all of its research packages individually can be
     a bit difficult, so we recommend
@@ -552,7 +545,7 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <ol>
         <li>Open <a href="https://www.anaconda.com/download/#windows">https://www.anaconda.com/download/#windows</a> with your web browser.</li>
         <li>Download the Python 3 installer for Windows.</li>
-        <li>Install Python 3 using all of the defaults for installation <em>except</em> make sure to check <strong>Make Anaconda the default Python</strong>.</li>
+        <li>Install Python 3 using all of the defaults for installation <em>except</em> make sure to check <strong>Add Anaconda to my PATH environment variable</strong>.</li>
       </ol>
     </div>
     <div class="col-md-4">
@@ -578,15 +571,15 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
         </li>
         <li>
           Type <pre>bash Anaconda3-</pre> and then press
-          tab. The name of the file you just downloaded should
+          <kbd>Tab</kbd>. The name of the file you just downloaded should
           appear. If it does not, navigate to the folder where you
           downloaded the file, for example with:
           <pre>cd Downloads</pre>
           Then, try again.
         </li>
         <li>
-          Press enter. You will follow the text-only prompts. To move through
-          the text, press the space key. Type <code>yes</code> and
+          Press <kbd>Return</kbd>. You will follow the text-only prompts. To move through
+          the text, press <kbd>Spacebar</kbd>. Type <code>yes</code> and
           press enter to approve the license. Press enter to approve the
           default location for the files. Type <code>yes</code> and
           press enter to prepend Anaconda to your <code>PATH</code>
@@ -611,10 +604,10 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   <h3>R</h3>
 
   <p>
-    <a href="http://www.r-project.org">R</a> is a programming language
+    <a href="https://www.r-project.org">R</a> is a programming language
     that is especially powerful for data exploration, visualization, and
     statistical analysis. To interact with R, we use
-    <a href="http://www.rstudio.com/">RStudio</a>.
+    <a href="https://www.rstudio.com/">RStudio</a>.
   </p>
 
   <div class="row">
@@ -623,10 +616,10 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <a href="https://www.youtube.com/watch?v=q0PjTAylwoU">Video Tutorial</a>
       <p>
         Install R by downloading and running
-        <a href="http://cran.r-project.org/bin/windows/base/release.htm">this .exe file</a>
-        from <a href="http://cran.r-project.org/index.html">CRAN</a>.
+        <a href="https://cran.r-project.org/bin/windows/base/release.htm">this .exe file</a>
+        from <a href="https://cran.r-project.org/index.html">CRAN</a>.
         Also, please install the
-        <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+        <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio IDE</a>.
         Note that if you have separate user and admin accounts, you should run the 
         installers as administrator (right-click on .exe file and select "Run as 
         administrator" instead of double-clicking). Otherwise problems may occur later, 
@@ -638,21 +631,21 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <a href="https://www.youtube.com/watch?v=5-ly3kyxwEg">Video Tutorial</a>
       <p>
         Install R by downloading and running
-        <a href="http://cran.r-project.org/bin/macosx/R-latest.pkg">this .pkg file</a>
-        from <a href="http://cran.r-project.org/index.html">CRAN</a>.
+        <a href="https://cran.r-project.org/bin/macosx/R-latest.pkg">this .pkg file</a>
+        from <a href="https://cran.r-project.org/index.html">CRAN</a>.
         Also, please install the
-        <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+        <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio IDE</a>.
       </p>
     </div>
     <div class="col-md-4">
       <h4 id="r-linux">Linux</h4>
       <p>
         You can download the binary files for your distribution
-        from <a href="http://cran.r-project.org/index.html">CRAN</a>. Or
+        from <a href="https://cran.r-project.org/index.html">CRAN</a>. Or
         you can use your package manager (e.g. for Debian/Ubuntu
         run <code>sudo apt-get install r-base</code> and for Fedora run
         <code>sudo dnf install R</code>).  Also, please install the
-        <a href="http://www.rstudio.com/ide/download/desktop">RStudio IDE</a>.
+        <a href="https://www.rstudio.com/products/rstudio/download/#download">RStudio IDE</a>.
       </p>
     </div>
   </div>
@@ -664,14 +657,14 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
   <p>
     SQL is a specialized programming language used with databases.  We
     use a simple database manager called
-    <a href="http://www.sqlite.org/">SQLite</a> in our lessons.
+    <a href="https://www.sqlite.org/">SQLite</a> in our lessons.
   </p>
 
   <div class="row">
     <div class="col-md-4">
       <h4 id="sql-windows">Windows</h4>
       <p>
-        The <a href="{{site.swc_installer}}">
+        The <a href="https://www.sqlite.org/download.html">
           {% if page.carpentry == "swc" %}
           Software Carpentry
           {% elsif page.carpentry == "dc" %}
@@ -724,7 +717,7 @@ eventbrite:           # optional: alphanumeric key for Eventbrite registration, 
       <p>Create a new directory called OpenRefine.</p>
       <p>Unzip the downloaded file into the OpenRefine directory by right-clicking and selecting "Extract ...". </p>
       <p>Go to your newly created OpenRefine directory.</p>
-      <p>Launch OpenRefine by clicking <code>google-refine.exe</code> (this will launch a command prompt window, but you can ignore that - just wait for OpenRefine to open in the browser).</p>
+      <p>Launch OpenRefine by clicking <code>openrefine.exe</code> (this will launch a command prompt window, but you can ignore that - just wait for OpenRefine to open in the browser).</p>
       <p>If you are using a different browser, or if OpenRefine does not automatically open for you, point your browser at <a href="http://127.0.0.1:3333/">http://127.0.0.1:3333/</a> or <a href="http://localhost:3333">http://localhost:3333</a> to use the program.</p>
     </div>
     <div class="col-md-4">
